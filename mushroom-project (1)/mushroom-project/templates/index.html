@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mushroom Edibility Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="scene" aria-hidden="true">
+    <div class="rays"></div>
+    <div class="trees far"></div>
+    <div class="trees near"></div>
+    <div class="spores"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <header class="hero">
+    <h1>🍄 Mushroom Edibility Predictor</h1>
+    <p>A decision tree trained on the UCI Mushroom dataset.</p>
+  </header>
+
+  <main class="page">
+    <div class="top">
+      <section class="card glass">
+        <h2>Describe the mushroom</h2>
+        <form id="predictForm" autocomplete="off">
+          <div class="fields" id="fields"><p class="muted">Loading…</p></div>
+          <button type="submit" id="predictBtn" class="btn"><span id="btnText">Predict</span></button>
+        </form>
+
+        <div class="result" id="result" data-state="idle" aria-live="polite">
+          <div class="result-icon" id="resultIcon">🌿</div>
+          <div>
+            <div class="result-title" id="resultTitle">No prediction yet</div>
+            <div class="muted" id="resultInfo">Choose the traits and press Predict.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card glass">
+        <h2>Model accuracy</h2>
+        <div class="acc"><span id="testAcc">--</span><small>test accuracy</small></div>
+        <div class="chart-box"><canvas id="accChart"></canvas></div>
+        <p class="muted" id="accNote"></p>
+      </section>
+    </div>
+
+    <section class="card glass">
+      <h2>How the tree decides</h2>
+      <p class="muted">Start at the top and answer each question. Your last prediction lights up its path.</p>
+      <div class="tree-scroll"><div id="tree"></div></div>
+    </section>
+
+    <section class="card glass dataset">
+      <div class="chart-box small"><canvas id="pieChart"></canvas></div>
+      <div>
+        <h2>The dataset</h2>
+        <p class="muted" id="datasetNote"></p>
+        <p class="warn">Educational demo only. Never eat a wild mushroom because of this app.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='chart.umd.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
